@@ -2,7 +2,7 @@ from fastapi import FastAPI, Body, Depends
 from app.model import *
 from app.auth.handler import signJWT
 from app.auth.bearer import Bearer
-
+from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 users = []
 posts = [
@@ -12,7 +12,10 @@ posts = [
         "author": "Rimma"
     }
 ]
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+)
 
 @app.get("/")
 def root():
